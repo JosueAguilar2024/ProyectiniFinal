@@ -8,6 +8,12 @@ package com.mycompany.proyectinifinal;
  *
  * @author josue
  */
-public class HistorialMultasFrame {
-    
+public class NodoVehiculo {
+    Vehiculo vehiculo;
+    NodoVehiculo izquierdo, derecho;
+
+    public NodoVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+        izquierdo = derecho = null;
+    }
 }

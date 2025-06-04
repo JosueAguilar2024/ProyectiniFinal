@@ -17,27 +17,37 @@ public class CargadorDatos {
         }
     }
 
-    private void cargarRecursivo(File carpeta) {
-        for (File archivo : carpeta.listFiles()) {
-            if (archivo.isDirectory()) {
-                cargarRecursivo(archivo); // recorrer subcarpetas
-            } else if (archivo.getName().toLowerCase().endsWith(".txt")) {
+ private void cargarRecursivo(File carpeta) {
+    for (File archivo : carpeta.listFiles()) {
+        if (archivo.isDirectory()) {
+            cargarRecursivo(archivo); // recorrer subcarpetas
+        } else if (archivo.getName().toLowerCase().endsWith(".txt")) {
+            String nombre = archivo.getName().toLowerCase();
+            
+            if (nombre.contains("vehiculos")) {
                 cargarDesdeArchivo(archivo);
+            } else if (nombre.contains("multas")) {
+                cargarMultasDesdeArchivo(archivo);
+            } else if (nombre.contains("traspasos")) {
+                cargarTraspasosDesdeArchivo(archivo)
             }
         }
     }
+    }
 
   private void cargarDesdeArchivo(File archivo) {
-    try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
         String linea;
         boolean primeraLinea = true;
+        
         while ((linea = br.readLine()) != null) {
-            if (primeraLinea) { 
+            if (primeraLinea) {
                 primeraLinea = false;
                 continue; // saltar encabezado
             }
             String[] partes = linea.split(",");
             if (partes.length < 8) continue;
+
             String placaLimpia = partes[0].trim().toUpperCase();
             Vehiculo v = new Vehiculo(
                 placaLimpia,
@@ -47,7 +57,7 @@ public class CargadorDatos {
             arbolVehiculos.insertar(v);
         }
     } catch (IOException e) {
-        System.out.println("Error al leer archivo: " + archivo.getName());
+        System.out.println("Error al leer archivo de vehículos: " + archivo.getName());
     }
 }
 

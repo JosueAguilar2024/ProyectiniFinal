@@ -7,6 +7,7 @@ package com.mycompany.proyectinifinal;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 /**
@@ -14,20 +15,43 @@ import javax.swing.table.JTableHeader;
  * @author josue
  */
 public class HistorialmultasPanel extends javax.swing.JFrame {
-
+private ListaDobleMultas listaMultas = new ListaDobleMultas();
     /**
      * Creates new form HistorialmultasPanel
      */
     public HistorialmultasPanel() {
         initComponents();
-        
+ 
 JTableHeader header = jTable1.getTableHeader();
 header.setBackground(new Color(52, 152, 219)); // Azul RGB
 header.setForeground(Color.WHITE); // Texto blanco (opcional)
 header.setFont(new Font("Segoe UI", Font.BOLD, 14)); // Fuente opcional
 
     }
-      
+    
+public void cargarMultasEnTabla() {
+    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+    modelo.setRowCount(0); // Limpiar la tabla
+
+    NodoMulta actual = listaMultas.getCabeza();
+    while (actual != null) {
+        Multa m = actual.getMulta();
+        Object[] fila = {
+            m.getPlaca(),
+            m.getFecha(),
+            m.getDescripcion(),
+            m.getMonto(),
+            m.getDepartamento(),
+       
+        };
+        modelo.addRow(fila);
+        actual = actual.getSiguiente();
+    }
+}
+
+
+
+
     public JPanel getPanelHistorialmultas(){
        return PanelHistorialMultas;
                 }
@@ -60,24 +84,25 @@ header.setFont(new Font("Segoe UI", Font.BOLD, 14)); // Fuente opcional
         jTable1.setForeground(new java.awt.Color(52, 152, 219));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Fecha", "Tipo de Multa", "Descripcion ", "Monto", "Estado", "Lugar"
+                "Placa", "Fecha", "Descripcion ", "Monto", "Derpartamento"
             }
         ));
+        jTable1.setToolTipText("");
         jTable1.setGridColor(new java.awt.Color(0, 0, 0));
         jTable1.setSelectionForeground(new java.awt.Color(51, 51, 51));
         jScrollPane1.setViewportView(jTable1);

@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import javax.swing.JOptionPane;
 import com.mycompany.proyectinifinal.ArbolVehiculos;
+import com.mycompany.proyectinifinal.CargadorDatos;
 import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -28,10 +29,12 @@ import javax.swing.table.JTableHeader;
  * @author josue
  */
 public class Interfaz extends javax.swing.JFrame {
+     private ArbolVehiculos arbol;
       private final Color COLOR_ACCENT = new Color(231, 76, 60);
       private final Color COLOR = new Color(52, 152, 219);
           private TraspasoV traspasoVentana;  // <--- fuera de los métodos
-
+    private ArbolVehiculos arbolVehiculos;
+    private ListaDobleMultas listaMultas;
  
                
     
@@ -40,8 +43,8 @@ public class Interfaz extends javax.swing.JFrame {
      */
     public Interfaz() {
        initComponents();
-      
-   
+      cargarDatosSoloUnaVez();
+    arbol = new ArbolVehiculos();
 
        
       /* Paneles(this.getInter());
@@ -66,6 +69,18 @@ public void Panelprincipal(JPanel a){
     jPanel5.add(a,BorderLayout.CENTER);
     jPanel5.revalidate();
     jPanel5.repaint();
+}
+private void cargarDatosSoloUnaVez() {
+    File carpetaVehiculos = new File("C:\\Users\\josue\\Downloads\\SIRVE_Datos_Vehiculos DataSet");
+    File carpetaMultas = new File("src/multas");
+
+    CargadorDatos cargador = new CargadorDatos();
+    cargador.cargarDesdeCarpeta(carpetaVehiculos);  // carga ambos si tu clase lo hace
+
+    this.arbolVehiculos = cargador.getArbolVehiculos();
+    this.listaMultas = cargador.getListaMultas();
+
+    System.out.println("Vehículos y multas cargados automáticamente al iniciar.");
 }
 
 
@@ -494,19 +509,19 @@ public void Panelprincipal(JPanel a){
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Buscar clase=
-        BuscarVehiculo Buscar= new BuscarVehiculo();
-        Paneles(Buscar.getpanelBuscarVehiculo());
+     BuscarVehiculo Buscar = new BuscarVehiculo();
+    Paneles(Buscar.getpanelBuscarVehiculo());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // Gestionar Multas
-        MultasV Mul =new MultasV();
-         HistorialmultasPanel Mul1 =new HistorialmultasPanel();
-        Paneles(Mul1.getPanelHistorialmultas());
+    HistorialmultasPanel multa = new HistorialmultasPanel();
+        Paneles(multa.getPanelHistorialmultas());
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
+       TraspasoV traspaso = new TraspasoV();
+        Paneles(traspaso.getTraspasoV());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -603,12 +618,13 @@ public void Panelprincipal(JPanel a){
     }//GEN-LAST:event_jButton13MouseExited
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-       Paneles(this.getInter());
+       Bienvenida bien = new Bienvenida();
+        Paneles(bien.getJpabelbien());
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        RegistrarVehiculo Regi= new RegistrarVehiculo();
-        Paneles(Regi.getRegistrarVehiculo());
+    RegistrarVehiculo Regi = new RegistrarVehiculo(arbol);
+    Paneles(Regi.getRegistrarVehiculo());
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**

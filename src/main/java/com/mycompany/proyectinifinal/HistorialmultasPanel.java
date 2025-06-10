@@ -4,6 +4,7 @@
  */
 package com.mycompany.proyectinifinal;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JPanel;
@@ -15,18 +16,21 @@ import javax.swing.table.JTableHeader;
  * @author josue
  */
 public class HistorialmultasPanel extends javax.swing.JFrame {
-private ListaDobleMultas listaMultas = new ListaDobleMultas();
+private ListaDobleMultas listaMultas;
+  MultasV multa = new MultasV();
     /**
      * Creates new form HistorialmultasPanel
      */
+
+
     public HistorialmultasPanel() {
         initComponents();
- 
+ this.listaMultas = GestorDatosGlobal.getMultas(); // Aquí se obtiene la lista
 JTableHeader header = jTable1.getTableHeader();
-header.setBackground(new Color(52, 152, 219)); // Azul RGB
-header.setForeground(Color.WHITE); // Texto blanco (opcional)
-header.setFont(new Font("Segoe UI", Font.BOLD, 14)); // Fuente opcional
-
+header.setBackground(new Color(52, 152, 219)); 
+header.setForeground(Color.WHITE); 
+header.setFont(new Font("Segoe UI", Font.BOLD, 14)); 
+cargarMultasEnTabla();
     }
     
 public void cargarMultasEnTabla() {
@@ -39,14 +43,27 @@ public void cargarMultasEnTabla() {
         Object[] fila = {
             m.getPlaca(),
             m.getFecha(),
-            m.getDescripcion(),
-            m.getMonto(),
+            m.getMotivo(),
             m.getDepartamento(),
-       
+            m.getMonto(),
+            
         };
         modelo.addRow(fila);
         actual = actual.getSiguiente();
     }
+}
+ public void Paneles (JPanel a){
+    a.setSize(974,547);
+    a.setLocation(0,0);
+    multa.getMultasV().removeAll();
+    multa.getMultasV().add(a,BorderLayout.CENTER);
+    multa.getMultasV().revalidate();
+   multa.getMultasV().repaint();
+}
+public void Panelprincipal(JPanel a){
+   multa.getMultasV().add(a,BorderLayout.CENTER);
+    multa.getMultasV().revalidate();
+   multa.getMultasV().repaint();
 }
 
 
@@ -99,7 +116,7 @@ public void cargarMultasEnTabla() {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Placa", "Fecha", "Descripcion ", "Monto", "Derpartamento"
+                "Placa", "Fecha", "Descripcion ", "Monto", "Departamento"
             }
         ));
         jTable1.setToolTipText("");
@@ -136,6 +153,11 @@ public void cargarMultasEnTabla() {
         Volvermulta.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         Volvermulta.setForeground(new java.awt.Color(255, 255, 255));
         Volvermulta.setText("Volver");
+        Volvermulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VolvermultaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelHistorialMultasLayout = new javax.swing.GroupLayout(PanelHistorialMultas);
         PanelHistorialMultas.setLayout(PanelHistorialMultasLayout);
@@ -197,6 +219,11 @@ public void cargarMultasEnTabla() {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void VolvermultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolvermultaActionPerformed
+                   MultasV multa = new MultasV();
+        Paneles(multa.getMultasV());
+    }//GEN-LAST:event_VolvermultaActionPerformed
 
     /**
      * @param args the command line arguments

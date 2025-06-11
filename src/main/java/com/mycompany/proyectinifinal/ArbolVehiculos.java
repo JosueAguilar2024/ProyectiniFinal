@@ -44,61 +44,9 @@ public class ArbolVehiculos {
             return buscarRecursivo(actual.derecho, placa);
         }
     }
-    
-    public void recorrerInorden(JTable tabla) {
-    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-    modelo.setRowCount(0);
-    recorrerInorden(raiz, modelo);
-}
-
-private void recorrerInorden(NodoVehiculo nodo, DefaultTableModel modelo) {
-    if (nodo != null) {
-        recorrerInorden(nodo.izquierdo, modelo);
-        agregarAFila(nodo.vehiculo, modelo);
-        recorrerInorden(nodo.derecho, modelo);
+ public NodoVehiculo getRaiz() {
+        return raiz;
     }
-}
-
-public void recorrerPreorden(JTable tabla) {
-    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-    modelo.setRowCount(0);
-    recorrerPreorden(raiz, modelo);
-}
-
-private void recorrerPreorden(NodoVehiculo nodo, DefaultTableModel modelo) {
-    if (nodo != null) {
-        agregarAFila(nodo.vehiculo, modelo);
-        recorrerPreorden(nodo.izquierdo, modelo);
-        recorrerPreorden(nodo.derecho, modelo);
-    }
-}
-
-public void recorrerPostorden(JTable tabla) {
-    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-    modelo.setRowCount(0);
-    recorrerPostorden(raiz, modelo);
-}
-
-private void recorrerPostorden(NodoVehiculo nodo, DefaultTableModel modelo) {
-    if (nodo != null) {
-        recorrerPostorden(nodo.izquierdo, modelo);
-        recorrerPostorden(nodo.derecho, modelo);
-        agregarAFila(nodo.vehiculo, modelo);
-    }
-}
-
-private void agregarAFila(Vehiculo v, DefaultTableModel modelo) {
-    modelo.addRow(new Object[]{
-        v.getPlaca(),
-        v.getMarca(),
-        v.getModelo(),
-        v.getAnio(),
-        v.getMultas(),
-        v.getTraspasos(),
-        v.getPropietario(),
-        v.getDpi()
-    });
-}
 
 }
 

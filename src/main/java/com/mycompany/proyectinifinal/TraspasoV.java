@@ -11,26 +11,31 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 /**
  *
  * @author josue
  */
-public class TraspasoV extends javax.swing.JPanel {
-  
-      
+public class TraspasoV extends javax.swing.JFrame {
+     NuevoTrapasoPanel traspaso;
+   private ListaCircularTraspasos Lista;
+
+
     /**
      * Creates new form TraspasoV
      */
     public TraspasoV() {
         initComponents();
-        
+   traspaso = new NuevoTrapasoPanel(this);
      agregarPlaceholder(jTextField1,"P123ABC");
-     JTableHeader header = jTable1.getTableHeader();
-header.setBackground(new Color(52, 152, 219)); // Azul RGB
-header.setForeground(Color.WHITE); // Texto blanco (opcional)
-header.setFont(new Font("Segoe UI", Font.BOLD, 14)); // Fuente opcional
+     JTableHeader header = jTableTrapaso.getTableHeader();
+header.setBackground(new Color(52, 152, 219));
+header.setForeground(Color.WHITE); 
+header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+this. Lista = GestorDatosGlobal.getTraspasos(); // Aquí se obtiene la lista
+cargarTraspasosEnTabla();
     }
 public JPanel getTraspasoV(){
 return GestionarTraspasosPanel;
@@ -73,7 +78,6 @@ public void Panelprincipal(JPanel a){
 
 
 
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,7 +95,7 @@ public void Panelprincipal(JPanel a){
         Modificar = new javax.swing.JButton();
         Eliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableTrapaso = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -140,7 +144,7 @@ public void Panelprincipal(JPanel a){
         Eliminar.setForeground(new java.awt.Color(255, 255, 255));
         Eliminar.setText("Eliminar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableTrapaso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -159,12 +163,13 @@ public void Panelprincipal(JPanel a){
                 "Placa", "DPI Anterior Dueno", "Nombre Anterior", "Fecha", "DPI Nuevo", "Nombre Nuevo"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableTrapaso);
 
         jLabel2.setText("Historial de Traspasos");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.setText("=== DETALLES DEL TRASPASO SELECCIONADO ===\n\nNúmero de Transacción: TR1705847291234\nFecha del Traspaso: 15 de enero de 2024\nPlaca del Vehículo: P123ABC\n\nPROPIETARIO ANTERIOR:\nNombre: Juan Pérez García\nDPI: 2958927141001\nDepartamento: Guatemala\n\nPROPIETARIO NUEVO:\nNombre: María López Hernández\nDPI: 3045612789234\nDepartamento: Guatemala\n\nDETALLES DEL TRASPASO:\nMotivo: Venta del vehículo\nValor de la Transacción: Q25,000.00\nEstado: Completado\nOficina Registral: Guatemala Centro");
         jScrollPane2.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout GestionarTraspasosPanelLayout = new javax.swing.GroupLayout(GestionarTraspasosPanel);
@@ -209,9 +214,9 @@ public void Panelprincipal(JPanel a){
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -237,10 +242,31 @@ public void Panelprincipal(JPanel a){
     }//GEN-LAST:event_ModificarActionPerformed
 
     private void NuevoTraspasoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoTraspasoActionPerformed
-      NuevoTrapasoPanel traspaso= new NuevoTrapasoPanel();
-       Paneles(traspaso.getnuevotraspasopanel());
+   
+    Paneles(traspaso.getnuevotraspasopanel());
     }//GEN-LAST:event_NuevoTraspasoActionPerformed
- 
+ public void cargarTraspasosEnTabla() {
+    DefaultTableModel modelo = (DefaultTableModel) jTableTrapaso.getModel();
+    modelo.setRowCount(0); // Limpiar tabla antes de llenar
+
+    ListaCircularTraspasos.NodoTraspaso actual = Lista.getCabeza();
+    if (actual == null) return;
+
+    do {
+        Traspaso t = actual.traspaso;
+        Object[] fila = {
+            t.getPlaca(),
+            t.getDPI(),
+            t.getPropietarioAnterior(),
+            t.getFecha(),
+            t.getNuevoPropietario(),
+            t.getDepartamento()
+        };
+        modelo.addRow(fila);
+        actual = actual.siguiente;
+    } while (actual != Lista.getCabeza());
+}
+
 
     /**
      * @param args the command line arguments
@@ -287,7 +313,7 @@ public void Panelprincipal(JPanel a){
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableTrapaso;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables

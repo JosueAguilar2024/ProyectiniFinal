@@ -78,13 +78,15 @@ private ArbolVehiculos arbolVehiculos;
     private void agregarAFila(Vehiculo v, DefaultTableModel modelo) {
         modelo.addRow(new Object[]{
             v.getPlaca(),
+            v.getDpi(),
+            v.getPropietario(),
             v.getMarca(),
             v.getModelo(),
             v.getAnio(),
             v.getMultas(),
             v.getTraspasos(),
-            v.getPropietario(),
-            v.getDpi()
+            v.getDepartamento()
+            
         });
     }
 
@@ -97,17 +99,29 @@ private ArbolVehiculos arbolVehiculos;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        PostOrdenAVL2 = new javax.swing.JButton();
         PanelHistorialMultas = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableVehiculos = new javax.swing.JTable();
-        AgregarVehiculo = new javax.swing.JButton();
         ModificarVehiculo = new javax.swing.JButton();
         EliminarVehiculo = new javax.swing.JButton();
-        VolverVehiculo = new javax.swing.JButton();
         PostOrden = new javax.swing.JButton();
         PreOrden = new javax.swing.JButton();
         Inorden = new javax.swing.JButton();
+        PreOrdenAVL = new javax.swing.JButton();
+        PostOrdenAVL1 = new javax.swing.JButton();
+        inordenAVL3 = new javax.swing.JButton();
+
+        PostOrdenAVL2.setBackground(new java.awt.Color(40, 167, 69));
+        PostOrdenAVL2.setForeground(new java.awt.Color(255, 255, 255));
+        PostOrdenAVL2.setText("Post Orden AVL");
+        PostOrdenAVL2.setFocusPainted(false);
+        PostOrdenAVL2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PostOrdenAVL2ActionPerformed(evt);
+            }
+        });
 
         PanelHistorialMultas.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -118,38 +132,38 @@ private ArbolVehiculos arbolVehiculos;
         jTableVehiculos.setForeground(new java.awt.Color(52, 152, 219));
         jTableVehiculos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Placa", "DPI/CUI", "Nombre", "Marca", "Modelo", "Año", "Multas", "Traspaso"
+                "Placa", "DPI/CUI", "Nombre", "Marca", "Modelo", "Año", "Multas", "Traspaso", "Departamento"
             }
         ));
         jTableVehiculos.setToolTipText("");
@@ -157,18 +171,7 @@ private ArbolVehiculos arbolVehiculos;
         jTableVehiculos.setSelectionForeground(new java.awt.Color(51, 51, 51));
         jScrollPane1.setViewportView(jTableVehiculos);
 
-        AgregarVehiculo.setBackground(new java.awt.Color(52, 152, 219));
-        AgregarVehiculo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        AgregarVehiculo.setForeground(new java.awt.Color(255, 255, 255));
-        AgregarVehiculo.setText("Agregar Vehiculo");
-        AgregarVehiculo.setFocusPainted(false);
-        AgregarVehiculo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AgregarVehiculoActionPerformed(evt);
-            }
-        });
-
-        ModificarVehiculo.setBackground(new java.awt.Color(52, 152, 219));
+        ModificarVehiculo.setBackground(new java.awt.Color(255, 153, 0));
         ModificarVehiculo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         ModificarVehiculo.setForeground(new java.awt.Color(255, 255, 255));
         ModificarVehiculo.setText("Modificar");
@@ -179,7 +182,7 @@ private ArbolVehiculos arbolVehiculos;
             }
         });
 
-        EliminarVehiculo.setBackground(new java.awt.Color(52, 152, 219));
+        EliminarVehiculo.setBackground(new java.awt.Color(255, 0, 0));
         EliminarVehiculo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         EliminarVehiculo.setForeground(new java.awt.Color(255, 255, 255));
         EliminarVehiculo.setText("Eliminar");
@@ -190,21 +193,10 @@ private ArbolVehiculos arbolVehiculos;
             }
         });
 
-        VolverVehiculo.setBackground(new java.awt.Color(52, 152, 219));
-        VolverVehiculo.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        VolverVehiculo.setForeground(new java.awt.Color(255, 255, 255));
-        VolverVehiculo.setText("Volver");
-        VolverVehiculo.setFocusPainted(false);
-        VolverVehiculo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VolverVehiculoActionPerformed(evt);
-            }
-        });
-
         PostOrden.setBackground(new java.awt.Color(51, 153, 255));
         PostOrden.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         PostOrden.setForeground(new java.awt.Color(255, 255, 255));
-        PostOrden.setText("Post Orden");
+        PostOrden.setText("Post Orden ABB");
         PostOrden.setFocusPainted(false);
         PostOrden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,7 +206,7 @@ private ArbolVehiculos arbolVehiculos;
 
         PreOrden.setBackground(new java.awt.Color(51, 153, 255));
         PreOrden.setForeground(new java.awt.Color(255, 255, 255));
-        PreOrden.setText("Pre Orden");
+        PreOrden.setText("Pre Orden ABB");
         PreOrden.setFocusPainted(false);
         PreOrden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -225,12 +217,42 @@ private ArbolVehiculos arbolVehiculos;
         Inorden.setBackground(new java.awt.Color(51, 153, 255));
         Inorden.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         Inorden.setForeground(new java.awt.Color(255, 255, 255));
-        Inorden.setText("Inorden");
+        Inorden.setText("Inorden ABB");
         Inorden.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         Inorden.setFocusPainted(false);
         Inorden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InordenActionPerformed(evt);
+            }
+        });
+
+        PreOrdenAVL.setBackground(new java.awt.Color(40, 167, 69));
+        PreOrdenAVL.setForeground(new java.awt.Color(255, 255, 255));
+        PreOrdenAVL.setText("Pre Orden AVL");
+        PreOrdenAVL.setFocusPainted(false);
+        PreOrdenAVL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PreOrdenAVLActionPerformed(evt);
+            }
+        });
+
+        PostOrdenAVL1.setBackground(new java.awt.Color(40, 167, 69));
+        PostOrdenAVL1.setForeground(new java.awt.Color(255, 255, 255));
+        PostOrdenAVL1.setText("Post Orden AVL");
+        PostOrdenAVL1.setFocusPainted(false);
+        PostOrdenAVL1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PostOrdenAVL1ActionPerformed(evt);
+            }
+        });
+
+        inordenAVL3.setBackground(new java.awt.Color(40, 167, 69));
+        inordenAVL3.setForeground(new java.awt.Color(255, 255, 255));
+        inordenAVL3.setText("Inorden AVL");
+        inordenAVL3.setFocusPainted(false);
+        inordenAVL3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inordenAVL3ActionPerformed(evt);
             }
         });
 
@@ -241,52 +263,62 @@ private ArbolVehiculos arbolVehiculos;
             .addGroup(PanelHistorialMultasLayout.createSequentialGroup()
                 .addGroup(PanelHistorialMultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelHistorialMultasLayout.createSequentialGroup()
+                        .addGap(115, 115, 115)
+                        .addComponent(ModificarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(PanelHistorialMultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(PreOrdenAVL)
+                            .addComponent(PreOrden))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelHistorialMultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(PanelHistorialMultasLayout.createSequentialGroup()
+                                .addComponent(PostOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Inorden))
+                            .addGroup(PanelHistorialMultasLayout.createSequentialGroup()
+                                .addComponent(PostOrdenAVL1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(inordenAVL3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(EliminarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelHistorialMultasLayout.createSequentialGroup()
                         .addGap(312, 312, 312)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelHistorialMultasLayout.createSequentialGroup()
-                        .addGap(178, 178, 178)
-                        .addComponent(AgregarVehiculo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ModificarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(EliminarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(VolverVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelHistorialMultasLayout.createSequentialGroup()
                         .addGap(69, 69, 69)
-                        .addGroup(PanelHistorialMultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PanelHistorialMultasLayout.createSequentialGroup()
-                                .addGap(198, 198, 198)
-                                .addComponent(PreOrden)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(PostOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(Inorden, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 677, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(81, Short.MAX_VALUE))
         );
         PanelHistorialMultasLayout.setVerticalGroup(
             PanelHistorialMultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelHistorialMultasLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelHistorialMultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelHistorialMultasLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(PreOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelHistorialMultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Inorden, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(PostOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PanelHistorialMultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AgregarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(VolverVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ModificarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EliminarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(PanelHistorialMultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(PreOrdenAVL, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PostOrdenAVL1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inordenAVL3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PanelHistorialMultasLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(PanelHistorialMultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelHistorialMultasLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(PanelHistorialMultasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(PostOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Inorden, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(PreOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(PanelHistorialMultasLayout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(ModificarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelHistorialMultasLayout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(EliminarVehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 15, Short.MAX_VALUE)))
+                .addGap(60, 60, 60))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -297,25 +329,23 @@ private ArbolVehiculos arbolVehiculos;
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelHistorialMultas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(PanelHistorialMultas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void AgregarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarVehiculoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AgregarVehiculoActionPerformed
 
     private void EliminarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarVehiculoActionPerformed
      int filaSeleccionada = jTableVehiculos.getSelectedRow();
 
     if (filaSeleccionada == -1) {
-        JOptionPane.showMessageDialog(this, "Seleccione un vehículo para eliminar.");
+        JOptionPane.showMessageDialog(this, "Seleccione un vehiculo para eliminar.");
         return;
     }
 
     String placa = jTableVehiculos.getValueAt(filaSeleccionada, 0).toString(); // columna 0 = placa
 
-    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Eliminar vehículo con placa: " + placa + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+    int confirmacion = JOptionPane.showConfirmDialog(this, "¿Eliminar vehiculo con placa: " + placa + "?", "Confirmar eliminacion", JOptionPane.YES_NO_OPTION);
 
     if (confirmacion != JOptionPane.YES_OPTION) {
         return;
@@ -329,15 +359,11 @@ private ArbolVehiculos arbolVehiculos;
         // Recargar la tabla
         TablaVehiculos tabla = new TablaVehiculos();
         tabla.cargarInordenEnTabla(jTableVehiculos);
-        JOptionPane.showMessageDialog(this, "Vehículo eliminado correctamente.");
+        JOptionPane.showMessageDialog(this, "Vehiculo eliminado correctamente.");
     } else {
-        JOptionPane.showMessageDialog(this, "No se pudo eliminar el vehículo.");
+        JOptionPane.showMessageDialog(this, "No se pudo eliminar el vehiculo.");
     }
     }//GEN-LAST:event_EliminarVehiculoActionPerformed
-
-    private void VolverVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverVehiculoActionPerformed
-     
-    }//GEN-LAST:event_VolverVehiculoActionPerformed
 
     private void InordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InordenActionPerformed
        cargarInordenEnTabla(jTableVehiculos);
@@ -352,19 +378,61 @@ private ArbolVehiculos arbolVehiculos;
     }//GEN-LAST:event_PreOrdenActionPerformed
 
     private void ModificarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarVehiculoActionPerformed
-        // TODO add your handling code here:
+ int fila = jTableVehiculos.getSelectedRow();
+    if (fila >= 0) {
+        String placa = jTableVehiculos.getValueAt(fila, 0).toString();
+        String dpi = jTableVehiculos.getValueAt(fila, 1).toString();
+        String propietario = jTableVehiculos.getValueAt(fila, 2).toString();
+        String marca = jTableVehiculos.getValueAt(fila, 3).toString();
+        String modelo = jTableVehiculos.getValueAt(fila, 4).toString();
+        String anio = jTableVehiculos.getValueAt(fila, 5).toString();
+        String multas = jTableVehiculos.getValueAt(fila, 6).toString();
+        String traspasos = jTableVehiculos.getValueAt(fila, 7).toString();
+        String departamento = jTableVehiculos.getValueAt(fila, 8).toString();
+        
+
+        Vehiculo actualizado = new Vehiculo(placa, marca, modelo, anio, multas, traspasos, propietario, dpi,departamento);
+
+        boolean ok = arbolVehiculos.modificarVehiculo(placa, actualizado);
+
+        if (ok) {
+            JOptionPane.showMessageDialog(this, "Vehículo modificado correctamente");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo modificar. Vehículo no encontrado");
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Seleccione una fila para modificar");
+    }
     }//GEN-LAST:event_ModificarVehiculoActionPerformed
+
+    private void PreOrdenAVLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PreOrdenAVLActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PreOrdenAVLActionPerformed
+
+    private void PostOrdenAVL1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PostOrdenAVL1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PostOrdenAVL1ActionPerformed
+
+    private void PostOrdenAVL2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PostOrdenAVL2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PostOrdenAVL2ActionPerformed
+
+    private void inordenAVL3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inordenAVL3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inordenAVL3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AgregarVehiculo;
     private javax.swing.JButton EliminarVehiculo;
     private javax.swing.JButton Inorden;
     private javax.swing.JButton ModificarVehiculo;
     private javax.swing.JPanel PanelHistorialMultas;
     private javax.swing.JButton PostOrden;
+    private javax.swing.JButton PostOrdenAVL1;
+    private javax.swing.JButton PostOrdenAVL2;
     private javax.swing.JButton PreOrden;
-    private javax.swing.JButton VolverVehiculo;
+    private javax.swing.JButton PreOrdenAVL;
+    private javax.swing.JButton inordenAVL3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableVehiculos;

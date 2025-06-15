@@ -8,6 +8,9 @@ import java.io.*;
 import java.util.*;
 public class CargadorDatos {
     private ArbolVehiculos arbolVehiculos = new ArbolVehiculos();
+    private ListaCircularTraspasos listasTraspasos = new ListaCircularTraspasos();
+private ListaDobleMultas listaMultas = new ListaDobleMultas();
+private ArbolAVL arbolAVL = new ArbolAVL(); 
 
     public void cargarDesdeCarpeta(File carpeta) {
         if (carpeta.exists() && carpeta.isDirectory()) {
@@ -20,7 +23,7 @@ public class CargadorDatos {
  private void cargarRecursivo(File carpeta) {
     for (File archivo : carpeta.listFiles()) {
         if (archivo.isDirectory()) {
-            cargarRecursivo(archivo); // recorrer subcarpetas
+            cargarRecursivo(archivo); 
         } else if (archivo.getName().toLowerCase().endsWith(".txt")) {
             String nombre = archivo.getName().toLowerCase();
             
@@ -29,35 +32,121 @@ public class CargadorDatos {
             } else if (nombre.contains("multas")) {
                 cargarMultasDesdeArchivo(archivo);
             } else if (nombre.contains("traspasos")) {
-                cargarTraspasosDesdeArchivo(archivo)
+                cargarTraspasosDesdeArchivo(archivo);
             }
         }
     }
     }
-
-  private void cargarDesdeArchivo(File archivo) {
-try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+private void cargarMultasDesdeArchivo(File archivo) {
+    try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
         String linea;
         boolean primeraLinea = true;
-        
+  
+        String nombreArchivo = archivo.getName().toLowerCase();
+        String departamento = nombreArchivo.replace(".txt", "")
+                                           .replace("multas", "")
+                                           .replace("_", "")
+                                           .trim(); // limpiar nombre
         while ((linea = br.readLine()) != null) {
             if (primeraLinea) {
                 primeraLinea = false;
-                continue; // saltar encabezado
+                continue; // Saltar encabezado
             }
-            String[] partes = linea.split(",");
-            if (partes.length < 8) continue;
 
-            String placaLimpia = partes[0].trim().toUpperCase();
-            Vehiculo v = new Vehiculo(
-                placaLimpia,
-                partes[1].trim(), partes[2].trim(), partes[3].trim(),
-                partes[4].trim(), partes[5].trim(), partes[6].trim(), partes[7].trim()
+            String[] partes = linea.split(",");
+            if (partes.length < 4) continue;
+
+           Multa multa = new Multa(
+                partes[0].trim(), 
+                partes[1].trim(),
+                partes[2].trim(),
+                partes[3].trim(), 
+                departamento 
+                );
+
+
+            listaMultas.insertar(multa);
+        }
+
+    } catch (IOException e) {
+        System.out.println("Error al leer archivo de multas: " + archivo.getName());
+    }
+}
+private void cargarTraspasosDesdeArchivo(File archivo) {
+    String nombreTxt = archivo.getName().toLowerCase().replace(".txt", "");
+String departamento = nombreTxt
+        .replace("traspasos_", "")
+        .replace("traspasos", "")
+        .replace("_", "")
+        .trim();
+
+    try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+        String linea;
+        boolean primeraLinea = true;
+
+        while ((linea = br.readLine()) != null) {
+            if (primeraLinea) {
+                primeraLinea = false;
+                continue; // Saltar encabezado
+            }
+
+            String[] p = linea.split(",");
+           
+            if (p.length < 6) continue;
+
+            Traspaso t = new Traspaso(
+                p[0].trim(),    
+                p[1].trim(),   
+                p[2].trim(),   
+                p[3].trim(),    
+                p[4].trim(),   
+                p[5].trim(),   
+                departamento    
             );
+            listasTraspasos.insertar(t);
+        }
+
+    } catch (IOException e) {
+        System.out.println("Error al leer archivo de traspasos: " + archivo.getName());
+    }
+}
+
+
+  private void cargarDesdeArchivo(File archivo) {
+   String nombre = archivo.getName().toLowerCase().replace(".txt", "");
+    String departamento = nombre.replace("vehiculos_", "")
+                                .replace("vehiculos", "")
+                                .replace("_", "")
+                                .trim();
+
+    try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+        String linea;
+        boolean primera = true;
+        while ((linea = br.readLine()) != null) {
+            if (primera) {
+            primera = false; 
+            continue; }
+
+            String[] campos = linea.split(",");
+            if (campos.length < 8) continue; 
+
+            Vehiculo v = new Vehiculo(
+                campos[0].trim(),  
+                campos[1].trim(),  
+                campos[2].trim(), 
+                campos[3].trim(),  
+                campos[4].trim(),  
+                campos[5].trim(),  
+                campos[6].trim(), 
+                campos[7].trim(), 
+                departamento       
+            );
+
             arbolVehiculos.insertar(v);
+            arbolAVL.insertar(v);
         }
     } catch (IOException e) {
-        System.out.println("Error al leer archivo de vehículos: " + archivo.getName());
+        System.out.println("Error al leer archivo de vehiculos: " + archivo.getName());
     }
 }
 
@@ -65,4 +154,15 @@ try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
     public ArbolVehiculos getArbolVehiculos() {
         return arbolVehiculos;
     }
+
+  
+    public ListaDobleMultas getListaMultas() {
+        return listaMultas;
+    }
+
+    public ListaCircularTraspasos getListaTraspasos() {
+        return listasTraspasos;   
+    }
+public ArbolAVL getArbolAVL(){
+    return arbolAVL; }
 }
